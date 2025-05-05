@@ -90,14 +90,14 @@ setup = (user) ->
 
   dialog = """
             <dialog id="reclaim">
-              <form method="dialog">
+              <form method="dialog" id="reclaim-form">
                 <h1>Welcome back #{ownerName}.</h1>
                 <p>Please enter your reclaim code.</p>
-                <input type="password" id="reclaimcode" name="reclaim" required>
+                <input type="password" id="reclaimcode" name="reclaim" autofocus required>
                 <div>
                   <menu>
-                    <li><button formmethod="dialog" value="">Cancel</button></li>
-                    <li><button autofocus id="confirmBtn" value="default">Submit</button></li>
+                    <li><button id="cancelBtn" type="button">Cancel</button></li>
+                    <li><button id="confirmBtn">Submit</button></li>
                   </menu>
                 </div>
               </form>
@@ -107,19 +107,13 @@ setup = (user) ->
     $(dialog).appendTo("body")
 
     reclaimDialog = document.getElementById('reclaim')
+    reclaimForm = reclaimDialog.querySelector('#reclaim-form')
     reclaimEl = reclaimDialog.querySelector('#reclaimcode')
-    confirmBtn = reclaimDialog.querySelector('#confirmBtn')
+    cancelBtn = reclaimDialog.querySelector('#cancelBtn')
 
-    confirmBtn.addEventListener 'click', (event) -> 
+    reclaimForm.addEventListener 'submit', (event) -> 
       event.preventDefault()
-      reclaimDialog.close(reclaimEl.value)
-
-    reclaimEl.addEventListener 'change', (event) ->
-      confirmBtn.value = reclaimEl.value
-
-    reclaimDialog.addEventListener 'close', (event) ->
-      event.preventDefault()
-      reclaimCode = reclaimDialog.returnValue
+      reclaimCode = reclaimEl.value
     
       unless reclaimCode is ''
         data = new FormData()
@@ -140,6 +134,11 @@ setup = (user) ->
             update_footer ownerName, true
           else
             console.log 'reclaim failed: ', response
+
+      reclaimDialog.close()
+
+    cancelBtn.addEventListener 'click', (event) ->
+      reclaimDialog.close()
 
   update_footer ownerName, isAuthenticated
 

@@ -143,11 +143,6 @@ setup = (user) ->
     cancelBtn.addEventListener 'click', (event) ->
       reclaimDialog.close()
 
-      reclaimDialog.close()
-
-    cancelBtn.addEventListener 'click', (event) ->
-      reclaimDialog.close()
-
   update_footer ownerName, isAuthenticated
 
 window.plugins.security = {setup, update_footer}

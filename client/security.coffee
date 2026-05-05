@@ -102,7 +102,7 @@ setup = (user) ->
                 <div>
                   <menu>
                     <li><button id="cancelBtn">Cancel</button></li>
-                    <li><button autofocus id="confirmBtn">Submit</button></li>
+                    <li><button id="confirmBtn">Submit</button></li>
                   </menu>
                 </div>
               </form>

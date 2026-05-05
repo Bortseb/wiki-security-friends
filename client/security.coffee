@@ -115,8 +115,8 @@ setup = (user) ->
     reclaimForm = reclaimDialog.querySelector('#reclaim-form')
     reclaimEl = reclaimDialog.querySelector('#reclaimcode')
     cancelBtn = reclaimDialog.querySelector('#cancelBtn')
-    
-    reclaimForm.addEventListener 'submit', (event) -> 
+
+    reclaimForm.addEventListener 'submit', (event) ->
       event.preventDefault()
       reclaimCode = reclaimEl.value
 

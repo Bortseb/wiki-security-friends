@@ -21,7 +21,7 @@ update_footer = (ownerName, isAuthenticated) ->
   # populate the security dialog
 
   if ownerName
-    $('footer > #site-owner').html("Site Owned by: <span id='site-owner' style='text-transform:capitalize;'>#{ownerName}</span>")
+    $('footer > #site-owner').html("Wiki by: <span id='site-owner'>#{ownerName}</span>")
 
   $('footer > #security').empty()
 
@@ -110,7 +110,7 @@ setup = (user) ->
     reclaimEl = reclaimDialog.querySelector('#reclaimcode')
     confirmBtn = reclaimDialog.querySelector('#confirmBtn')
 
-    confirmBtn.addEventListener 'click', (event) -> 
+    confirmBtn.addEventListener 'click', (event) ->
       event.preventDefault()
       reclaimDialog.close(reclaimEl.value)
 
@@ -120,7 +120,7 @@ setup = (user) ->
     reclaimDialog.addEventListener 'close', (event) ->
       event.preventDefault()
       reclaimCode = reclaimDialog.returnValue
-    
+
       unless reclaimCode is ''
         data = new FormData()
         data.append( "json", JSON.stringify({reclaimCode: reclaimCode}))

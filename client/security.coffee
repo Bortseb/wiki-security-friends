@@ -21,7 +21,7 @@ update_footer = (ownerName, isAuthenticated) ->
   # populate the security dialog
 
   if ownerName
-    $('footer > #site-owner').html("Site Owned by: <span id='site-owner' style='text-transform:capitalize;'>#{ownerName}</span>")
+    $('footer > #site-owner').html("Wiki by: <span id='site-owner'>#{ownerName}</span>")
 
   $('footer > #security').empty()
 
@@ -94,15 +94,15 @@ setup = (user) ->
     $('<link rel="stylesheet" href="/security/style.css">').appendTo("head")
 
   dialog = """
-            <dialog id="reclaim"">
+            <dialog id="reclaim">
               <form method="dialog" id="reclaim-form">
                 <h1>Welcome back #{ownerName}.</h1>
                 <p>Please enter your reclaim code.</p>
                 <input type="password" id="reclaimcode" name="reclaim" autofocus required>
                 <div>
                   <menu>
-                    <li><button id="cancelBtn" type="button">Cancel</button></li>
-                    <li><button id="confirmBtn">Submit</button></li>
+                    <li><button id="cancelBtn">Cancel</button></li>
+                    <li><button autofocus id="confirmBtn">Submit</button></li>
                   </menu>
                 </div>
               </form>
@@ -115,11 +115,10 @@ setup = (user) ->
     reclaimForm = reclaimDialog.querySelector('#reclaim-form')
     reclaimEl = reclaimDialog.querySelector('#reclaimcode')
     cancelBtn = reclaimDialog.querySelector('#cancelBtn')
-    
     reclaimForm.addEventListener 'submit', (event) -> 
       event.preventDefault()
       reclaimCode = reclaimEl.value
-    
+
       unless reclaimCode is ''
         data = new FormData()
         data.append( "json", JSON.stringify({reclaimCode: reclaimCode}))
@@ -139,6 +138,10 @@ setup = (user) ->
             update_footer ownerName, true
           else
             console.log 'reclaim failed: ', response
+      reclaimDialog.close()
+
+    cancelBtn.addEventListener 'click', (event) ->
+      reclaimDialog.close()
 
       reclaimDialog.close()
 

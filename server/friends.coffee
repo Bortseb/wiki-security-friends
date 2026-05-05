@@ -51,10 +51,9 @@ module.exports = exports = (log, loga, argv) ->
           if err then return cb err
           try
             owner = JSON.parse(data)
-          catch parseError
-            console.error "Error parsing owner file #{idFile}", parseError
-            owner = {name: "syntax error", friend: {secret: null}}
-            return cb()
+          catch error
+            console.error "Error parsing owner file #{idFile}", error.message
+            owner = { name: 'unparsable' }
           cb())
       else
         owner = ''
